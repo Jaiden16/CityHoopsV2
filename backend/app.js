@@ -20,7 +20,7 @@ app.listen(console.log(process.env.DATABASE_URL))
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json);
+// app.use(bodyParser.json);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
