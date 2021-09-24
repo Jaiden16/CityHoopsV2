@@ -1,11 +1,15 @@
 const db = require("../db/index");
 
 const createUser = async (req, res, next) => {
+    let query1 = 'INSERT INTO users (id,email,username) VALUES ( ${id},${email},${username}) RETURNING*'
+    let query2 = 'INSERT INTO info (player,nickname) VALUES(${id}, ${username}) RETURNING*'
+    
     try {
-        await db.none(
-            'INSERT INTO users (id,email,username) VALUES ( ${id},${email},${username} ) ', req.body
-        );
+        let addPlayer = await db.one(query1,req.body);
+        let addPlayerInfo = await db.one(query2, req.body);
         res.json({
+            player: addPlayer,
+            info: addPlayerInfo,
             message: "NEW USER CREATED!"
         })
 

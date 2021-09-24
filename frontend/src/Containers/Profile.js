@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { uploadImage } from "../util/firebaseFunctions"
-// import axios from 'axios';
+
 
 export default function Profile() {
     const [image, setImage] = useState("");

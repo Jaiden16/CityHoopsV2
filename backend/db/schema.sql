@@ -7,7 +7,7 @@ DROP DATABASE IF EXISTS users;
 
 CREATE TABLE users(
     usernum SERIAL PRIMARY KEY,
-    id VARCHAR,
+    id VARCHAR UNIQUE,
     email VARCHAR,
     username VARCHAR UNIQUE
 );
@@ -26,7 +26,7 @@ CREATE TABLE skills(
 );
 
 CREATE TABLE info(
-    player INT REFERENCES users(usernum),
+    player VARCHAR REFERENCES users(id),
     picture VARCHAR,
     nickname VARCHAR,
     height VARCHAR
@@ -35,4 +35,5 @@ CREATE TABLE info(
 );
 
 -- INSERT into info(player,picture,nickname,height)
---     VALUES(1,'picture','jaiden','6.0');
+--     VALUES(1,'https://firebasestorage.googleapis.com/v0/b/chzv2-bcffe.appspot.com/o/images%2F18739087_10154922759203778_2786552983602310199_o.jpg?alt=media&token=b05db62a-5b3a-496a-bdb1-be2a6f038973',
+--     'jaiden','6.0');
