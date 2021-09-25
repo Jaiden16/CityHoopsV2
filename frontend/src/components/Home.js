@@ -11,7 +11,6 @@ export default function Home() {
     const getUser = async (user) => {
         if (user) {
             
-            
             try {
                 let res = await axios.get(`${API}/api/users/${user}`)
                 let username = res.data.user.username
@@ -20,10 +19,7 @@ export default function Home() {
             } catch (err) {
                 console.log(err)
             }
-
         }
-
-
     }
 
     useEffect(() => {

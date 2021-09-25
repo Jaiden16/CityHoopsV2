@@ -59,7 +59,15 @@ const getUserId = async (req,res,next) =>{
     }
 }
 
+const updateUserPhoto = async (req,res,nest)=>{
+    try{
+        
+    }catch{
+        console.log(err)
+    }
+}
+
 
 
 // modules.exports ={createUser, getAllUsers}
-module.exports = { createUser, getAllUsers, getSingleUser, getUserId };
+module.exports = { createUser, getAllUsers, getSingleUser, getUserId,updateUserPhoto };

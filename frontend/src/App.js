@@ -21,18 +21,23 @@ function App() {
         <Route exact path="/">
           <LoggedIn />
         </Route>
+        
         <ProtectedRoute path="/users">
           <UsersIndex />
         </ProtectedRoute>
+        
         <AuthRoute path="/signup">
           <SignUp />
         </AuthRoute>
+        
         <AuthRoute path="/login">
           <Login />
         </AuthRoute>
+        
         <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
+      
       </AuthProvider>
 
       {/* <TimeElasped/> */}
