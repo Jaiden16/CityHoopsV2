@@ -19,7 +19,8 @@ export default function NavBar() {
                     {SidebarData.map((item, index) => {
                         return (
                             <li key={index}
-                                className={item.cName}>
+                                className={item.cName}
+                                onClick={showSidebar}>
                                 <Link to={item.path}>
                                     {item.icon}
                                     <span>{item.title}</span>
@@ -29,9 +30,9 @@ export default function NavBar() {
                     })}
                     {/* <NavLink to={'/profile'}>My Profile</NavLink>
                     <button onClick={logout}>LogOut</button> */}
-                    <li className='nav-text'>
+                    <li className='nav-text' onClick={showSidebar}>
                         <span>
-                            <button onClick={logout}>LogOut</button>
+                            <button  onClick={logout}>LogOut</button>
                         </span>
                     </li>
 
@@ -40,8 +41,23 @@ export default function NavBar() {
         } else {
             return (
                 <>
-                    <NavLink to={'/login'}>LogIn</NavLink>
-                    <NavLink to={'/signup'}>SignUp</NavLink>
+                    <li className='nav-text' onClick={showSidebar}>
+                        <Link to="/login">
+                            <FaICons.FaKey />
+                            <span>Login</span>
+                        </Link>
+                    </li>
+                    <li className='nav-text' onClick={showSidebar}>
+                        <Link to="/signup">
+                            <FaICons.FaPenSquare />
+                            <span>SignUp</span>
+                        </Link>
+                    </li>
+
+
+
+
+
                 </>
             )
         }
@@ -63,7 +79,7 @@ export default function NavBar() {
                         </Link>
                     </li>
 
-                    <li className='nav-text'>
+                    <li className='nav-text' onClick={showSidebar}>
                         <Link to="/">
                             <AiICons.AiFillHome />
                             <span>Home</span>
