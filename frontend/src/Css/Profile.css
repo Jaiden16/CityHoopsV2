@@ -1,0 +1,11 @@
+.Profile_img {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.Image{
+    width:200px;
+    height:200px;
+}

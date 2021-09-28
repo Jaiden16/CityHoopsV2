@@ -14,7 +14,7 @@ export const SidebarData = [
     {
         title:'Profile',
         path: '/profile',
-        icon: <IOIcons.IoIosPaper/>,
+        icon: <FaIcons.FaUser/>,
         cName:'nav-text'
     },
     {

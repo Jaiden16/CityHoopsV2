@@ -9,7 +9,9 @@ CREATE TABLE users(
     usernum SERIAL PRIMARY KEY,
     id VARCHAR UNIQUE,
     email VARCHAR,
-    username VARCHAR UNIQUE
+    username VARCHAR UNIQUE,
+    profileUrl VARCHAR,
+    player_description VARCHAR 
 );
 
 CREATE TABLE skills(
@@ -26,7 +28,7 @@ CREATE TABLE skills(
 );
 
 CREATE TABLE info(
-    player VARCHAR REFERENCES users(id),
+    player INT REFERENCES users(usernum),
     picture VARCHAR,
     nickname VARCHAR,
     height VARCHAR
