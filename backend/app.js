@@ -9,6 +9,7 @@ var cors = require('cors')
 
 // var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const skillsRouter = require('./routes/skills');
 const welcomeRouter = require('./routes/welcome');
 
 var app = express();
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',welcomeRouter);
 app.use("/api/users",usersRouter);
+app.use("/api/skills",skillsRouter);
 
 
 
