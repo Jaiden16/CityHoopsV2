@@ -9,8 +9,8 @@ const createUser = async (req, res, next) => {
         let addPlayer = await db.one(query1, req.body);
         console.log(addPlayer)
         console.log(parseInt(addPlayer.usernum))
-        let addPlayerInfo = await db.one(query2,addPlayer);
-        let addSkillsInfo = await db.one(query3,addPlayer);
+        let addPlayerInfo = await db.one(query2, addPlayer);
+        let addSkillsInfo = await db.one(query3, addPlayer);
 
         res.json({
             player: addPlayer,
@@ -40,7 +40,7 @@ const getAllUsers = async (req, res, next) => {
 
 const getSingleUser = async (req, res, next) => {
     try {
-        const user = await db.oneOrNone(`SELECT username FROM users WHERE email = '${req.params.email}' `)
+        const user = await db.oneOrNone(`SELECT username, usernum FROM users WHERE email = '${req.params.email}' `)
         console.log(user)
         res.json({
             user,
