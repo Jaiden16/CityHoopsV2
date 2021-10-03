@@ -1,0 +1,39 @@
+/* .list_header, .list_abilities, .list_stats {
+    list-style-type: none;
+} */
+
+.list_header {
+    display: table-row;
+}
+
+.list_header li {
+    display: table-cell;
+    height: 100px;
+    width: 100px;
+    list-style-type: none;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+
+.list_abilities {
+    display: table-row;
+}
+
+.list_abilities li {
+    /* display: table-cell; */
+    /* height: 100px; */
+    /* width: 100px; */
+    list-style-type: none;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+
+/* .list_header{
+    list-style-type: none;
+}
+.list_header li{
+    float:left;
+     margin: 10px;
+} */

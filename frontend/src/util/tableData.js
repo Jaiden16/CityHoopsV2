@@ -10,11 +10,12 @@ export const tableHeaders =[
         align: "center",
         scope: "col",
         title: "Personal"
-    },
-    {
-        align: "center",
-        scope: "col",
-        title: "Comunity"
-    },
+    }
+    //,
+    // {
+    //     align: "center",
+    //     scope: "col",
+    //     title: "Comunity"
+    // },
 ]
 

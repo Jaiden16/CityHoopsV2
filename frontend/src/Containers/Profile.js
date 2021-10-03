@@ -6,12 +6,14 @@ import axios from 'axios';
 import { apiUrl } from "../util/util";
 import "../Css/Profile.css";
 import TableBody from "../components/TableBody";
+import ListBody from "../components/ListBody";
 // import pic from "../pictures/logo.png"
 
 
 export default function Profile() {
     const [image, setImage] = useState("");
-    const [imageUrl, setImageUrl] = useState("../../pictures/logo.png");
+    // const [imageUrl, setImageUrl] = useState("../../pictures/logo.png");
+    const [imageUrl, setImageUrl] = useState("");
     const [skills, setSkills] = useState("")
     // let skillsLabel = Object.keys(skills)
     // let skillsValue = Object.values(skills)
@@ -21,7 +23,9 @@ export default function Profile() {
     // console.log("skills Value", skillsValue)
 
     const { currentUser } = useContext(AuthContext)
+    console.log(currentUser)
     const email = currentUser.email
+    const [id, setId] = useState("")
 
     const [descText, setDescText] = useState("")
 
@@ -72,17 +76,26 @@ export default function Profile() {
 
     }
 
-    // const displaySkills = () => {
-    //     let array = []
-    //     for (let key in skills) {
-    //         return <TableBody key={key} 
-    //         label={key}
-    //         stat ={skills[key]}/>
-    //         // array.push([key, skills[key]])
+    const fetchPhotoUrl = async (email) => {
+        if (email) {
+            try {
+                let res = await axios.get(`${API}/api/users/photo/${email}`)
+                let url = res.data.url.profile_url
+                console.log(res.data.url.profile_url)
+                setImageUrl(url)
 
-    //     }
-    // }
+            } catch (err) {
 
+            }
+
+        }
+    }
+
+
+
+    // useEffect(() => {
+
+    // }, [])
 
 
 
@@ -90,6 +103,7 @@ export default function Profile() {
 
     useEffect(() => {
         fetchSkills(email)
+        fetchPhotoUrl(email)
 
     }, [])
 
@@ -100,7 +114,10 @@ export default function Profile() {
         e.preventDefault();
         try {
             let url = await uploadImage(image);
+            console.log("photo url: ",url)
             setImageUrl(url);
+            let post = await axios.patch(`${API}/api/users/photo/${email}`,{url})
+            console.log("posting", post)
             //todo patch user date for picture
 
         } catch (err) {
@@ -160,11 +177,16 @@ export default function Profile() {
                     </thead>
                     <tbody>
                         {/* {skills? <TableBody skills={skills}/> : null} */}
-                        <TableBody skills={skills}/>
+                        <TableBody skills={skills} />
 
 
                     </tbody>
                 </table>
+
+                {/* <div>
+
+                        <ListBody skills = {skills}/>
+                </div> */}
 
 
 
@@ -174,10 +196,10 @@ export default function Profile() {
             </div>
 
 
-            {/* <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <input type='file' onChange={handleImage} />
                 <button>Upload</button>
-            </form> */}
+            </form>
 
 
         </div>

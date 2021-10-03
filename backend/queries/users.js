@@ -53,6 +53,7 @@ const getSingleUser = async (req, res, next) => {
 }
 
 const getUserId = async (req, res, next) => {
+    
     try {
         const id = await db.oneOrNone(`SELECT usernum FROM users WHERE email = '${req.params.email}' `)
         console.log(id)
@@ -66,10 +67,37 @@ const getUserId = async (req, res, next) => {
     }
 }
 
-const updateUserPhoto = async (req, res, nest) => {
+const updateUserPhoto = async (req, res, next) => {
+    let pictureObj = {
+        url: req.body.url,
+        email: req.params.email
+    }
+    
+    let query = 'UPDATE users SET profile_url = ${url} WHERE email = ${email} RETURNING *'
+    
+    
     try {
+        let photo = await db.one(query,pictureObj)
+        res.json({
+            url: photo,
+            message: "success"
+        })
 
     } catch {
+        console.log(err)
+    }
+}
+
+const getUserPhoto = async (req,res,next) =>{
+    let query = `SELECT profile_url FROM users WHERE email = '${req.params.email}' `
+    try{
+        let photo = await db.one(query)
+        res.json({
+            url: photo,
+            message: "Success"
+        })
+        
+    }catch(err){
         console.log(err)
     }
 }
@@ -77,4 +105,4 @@ const updateUserPhoto = async (req, res, nest) => {
 
 
 // modules.exports ={createUser, getAllUsers}
-module.exports = { createUser, getAllUsers, getSingleUser, getUserId, updateUserPhoto };
+module.exports = { createUser, getAllUsers, getSingleUser, getUserId, updateUserPhoto, getUserPhoto};

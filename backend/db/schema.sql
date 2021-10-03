@@ -3,14 +3,14 @@ CREATE DATABASE firebase_auth;
 
 \c firebase_auth;
 
-DROP DATABASE IF EXISTS users;
+-- DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
     usernum SERIAL PRIMARY KEY,
     id VARCHAR UNIQUE,
     email VARCHAR,
     username VARCHAR UNIQUE,
-    profileUrl VARCHAR,
+    profile_url VARCHAR,
     player_description VARCHAR 
 );
 
