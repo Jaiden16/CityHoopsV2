@@ -3,6 +3,7 @@
     justify-content: space-around;
 } */
 .navbar {
+    width: 100%;
     background-color: #060b26;
     height: 80px;
     display: flex;

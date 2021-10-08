@@ -1,11 +1,45 @@
+.Profile_Container{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-around;
+    /* align-items: space-between; */
+    padding: 5px;
+}
+
+.profile_user_heading{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+
+.player_info, .player_stats {
+    border: 1px solid black;
+    flex: 1;
+}
+
+.player_info{
+    padding: 20px;
+}
+
+
 .Profile_img {
     display: inline-block;
     width: 200px;
     height: 200px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    margin-top: 10px;
 }
 
 .Image{
+    border-radius: 30px;
     width:200px;
     height:200px;
+}
+
+@media screen and (max-width:650px) {
+    .Profile_Container{
+        display: block;
+        padding: 5px;
+    }
+    
 }

@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function TableBody(props) {
     let skills = props.skills
+    let communitySkills = props.mock
     let label = ""
     // console.log("table body component ", skills)
     // let skillsLabel = Object.keys(skills)
@@ -10,17 +11,17 @@ export default function TableBody(props) {
     // console.log("skills Value", skillsValue)
     // console.log(props.key)
 
-    // blocks: 1
+    // shooting: 1
     // handle: 1
+    // perimiter_defence: 1
     // interior_defence: 1
+    // rebounding: 1
+    // steals: 1
+    // blocks: 1
     // iq: 1
     // leadership: 1
-    // perimiter_defence: 1
-    // rebounding: 1
-    // shooting: 1
-    // steals: 1
 
-    console.log(skills)
+    // console.log(skills)
     return (
         <>
             {Object.keys(skills).map((keyname, i) => {
@@ -59,8 +60,10 @@ export default function TableBody(props) {
                     <tr key={i}>
                         <th>{label}</th>
                         <td>{skills[keyname]}</td>
-
+                        <td>{communitySkills[keyname]}</td>
+                        
                     </tr>
+
                 )
             })}
         </>
