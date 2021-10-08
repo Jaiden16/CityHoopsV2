@@ -14,6 +14,6 @@ export const getFirebaseIdToken = () => firebase.auth().currentUser.getIdToken(f
 export const uploadImage = async (image) =>{
     await storage.ref(`images/${image.name}`).put(image);
     const url = await storage.ref(`images/${image.name}`).getDownloadURL()
-    console.log(url)
+    console.log("uploade immage url:", url)
     return url;
 }  

@@ -9,7 +9,7 @@ import PlayerStats from "../components/PlayerStats";
 // import pic from "../pictures/logo.png"
 
 /*Material UI Imported button code*/
-import{styled} from "@mui/material/styles"
+import { styled } from "@mui/material/styles"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import PhotoCamera from "@mui/icons-material/PhotoCamera"
@@ -17,7 +17,7 @@ import Stack from "@mui/material/Stack"
 
 
 const Input = styled('input')({
-    display:'none'
+    display: 'none'
 })
 
 
@@ -30,7 +30,7 @@ export default function Profile() {
     const [username, setUsername] = useState("")
 
     const { currentUser } = useContext(AuthContext)
-    console.log(currentUser)
+    // console.log(currentUser)
     const email = currentUser.email
     const [id, setId] = useState("")
 
@@ -42,7 +42,7 @@ export default function Profile() {
     const API = apiUrl();
 
 
-    // console.log("profile page: ", email)
+    // console.log("profile page: ", image)
 
     const handleImage = (e) => {
         if (e.target.files[0]) {
@@ -99,6 +99,7 @@ export default function Profile() {
         }
     }
 
+
     useEffect(() => {
         fetchSkills(email)
         fetchPhotoUrl(email)
@@ -110,12 +111,12 @@ export default function Profile() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("submiting")
         try {
             let url = await uploadImage(image);
-            // console.log("photo url: ",url)
             setImageUrl(url);
             let post = await axios.patch(`${API}/api/users/photo/${email}`, { url })
-            // console.log("posting", post)
+
             //todo patch user date for picture
 
         } catch (err) {
@@ -124,8 +125,13 @@ export default function Profile() {
         }
     }
 
+    const input = async (e) => {
+        handleImage(e)
+        handleSubmit(e)
+    }
 
-    // console.log(currentUser)
+
+
     return (
         <div className="Profile_Container">
             {/* {imageUrl ? <img className="Profile_img" src={imageUrl} alt='pic' /> : null} */}
@@ -133,20 +139,30 @@ export default function Profile() {
             <div className="player_info">
                 <div className="profile_user_heading">{username}</div>
                 <div className="Profile_img">
-                    <img className="Image" src={imageUrl} alt='pic' />
-                    <div>
-                    <form onSubmit={handleSubmit}>
+                    {/* <div>
+                        <form onSubmit={handleSubmit}>
                         <input type='file' onChange={handleImage} />
+                        
                         <button>Upload</button>
-                    </form>
-                </div>
-                    <label htmlFor='icon-button-file'>
-                        <Input accept="image/*" id="icon-button-file" type="file"/>
-                        <IconButton color="primary" aria-label="upload picture" component="div">
-                            <PhotoCamera/>
-                        </IconButton>
+                        </form>
+                    </div> */}
 
-                    </label>
+                    {/* <Button
+                                containerElement='label' // <-- Just add me!
+                                label='My Label'>
+                                <input type="file" 
+                                onChange={handleImage}/>
+                            </Button> */}
+
+                    <Stack direction="row" alignItems="flex-end" spacing={2}>
+                        <img className="Image" src={imageUrl} alt='pic' />
+                        <label htmlFor='icon-button-file'>
+                            <Input accept="image/*" id="icon-button-file" type="file" onChange={handleSubmit} onInput={handleImage} />
+                            <IconButton color="primary" aria-label="upload picture" component="span" type="submit"  >
+                                <PhotoCamera />
+                            </IconButton>
+                        </label>
+                    </Stack>
                 </div>
 
                 <div className="Player_description">
@@ -160,9 +176,6 @@ export default function Profile() {
                         </> : null
                     }
                 </div>
-
-                
-
             </div>
 
 
@@ -170,53 +183,8 @@ export default function Profile() {
                 <PlayerStats
                     communityStats={communityStats}
                     playerStats={playerStats} />
-                {/*  */}
-
-
-                {/* <table>
-                    items that belong in the table head
-                    <thead>
-                        <tr>
-                            {tableHeaders.map((item, index) => {
-                                // console.log("index",Object.keys(item)[index])
-                                return (
-                                    <th key={index}
-                                        align={item.align}
-                                        scope={item.scope}
-                                    >
-                                        
-                                        {item.title}
-                                    </th>
-                                )
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {skills? <TableBody skills={skills}/> : null}
-                        <TableBody 
-                        skills={playerStats} 
-                        mock={communityStats}/>
-
-
-                    </tbody>
-                </table> */}
-
-                {/* <div>
-
-                        <ListBody skills = {skills}/>
-                </div> */}
-
-
-
-
-
 
             </div>
-
-
-
-
-
         </div>
 
 
