@@ -4,16 +4,18 @@ import { uploadImage } from "../util/firebaseFunctions";
 import axios from 'axios';
 import { apiUrl } from "../util/util";
 import "../Css/Profile.css";
-import { CommunityStats } from "../util/mockData.js"
+import { CommunityStats } from "../util/mockData.js";
+import { PlayerPostions } from "../util/PlayerPositions";
 import PlayerStats from "../components/PlayerStats";
 // import pic from "../pictures/logo.png"
 
 /*Material UI Imported button code*/
 import { styled } from "@mui/material/styles"
-import Button from "@mui/material/Button"
+// import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import PhotoCamera from "@mui/icons-material/PhotoCamera"
 import Stack from "@mui/material/Stack"
+import PlayerStatsEdit from "../components/PlayerStatsEdit";
 
 
 const Input = styled('input')({
@@ -44,12 +46,7 @@ export default function Profile() {
 
     // console.log("profile page: ", image)
 
-    const handleImage = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-            console.log("small change")
-        }
-    }
+
 
     const descriptUpdate = () => {
         // console.log(textArea)
@@ -107,13 +104,11 @@ export default function Profile() {
     }, [])
 
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("submiting")
         try {
-            let url = await uploadImage(image);
+            let url = await uploadImage(e.target.files[0]);
             setImageUrl(url);
             let post = await axios.patch(`${API}/api/users/photo/${email}`, { url })
 
@@ -125,12 +120,6 @@ export default function Profile() {
         }
     }
 
-    const input = async (e) => {
-        handleImage(e)
-        handleSubmit(e)
-    }
-
-
 
     return (
         <div className="Profile_Container">
@@ -138,34 +127,46 @@ export default function Profile() {
 
             <div className="player_info">
                 <div className="profile_user_heading">{username}</div>
-                <div className="Profile_img">
-                    {/* <div>
-                        <form onSubmit={handleSubmit}>
-                        <input type='file' onChange={handleImage} />
-                        
-                        <button>Upload</button>
-                        </form>
-                    </div> */}
+                <Stack direction="row" spacing={4}>
+                    <div className="Profile_img">
 
-                    {/* <Button
-                                containerElement='label' // <-- Just add me!
-                                label='My Label'>
-                                <input type="file" 
-                                onChange={handleImage}/>
-                            </Button> */}
+                        <div>
+                            <Stack direction="row" alignItems="flex-start" spacing={2}>
+                                <div>
+                                    <Stack direction="row" alignItems="flex-end" spacing={2}>
+                                        <img className="Image" src={imageUrl} alt='pic' />
+                                        <label htmlFor='icon-button-file'>
+                                            <Input accept="image/*" id="icon-button-file" type="file" onChange={handleSubmit} /*onInput={handleImage}*/ />
+                                            <IconButton color="primary" aria-label="upload picture" component="span" type="submit"  >
+                                                <PhotoCamera />
+                                            </IconButton>
+                                        </label>
+                                    </Stack>
 
-                    <Stack direction="row" alignItems="flex-end" spacing={2}>
-                        <img className="Image" src={imageUrl} alt='pic' />
-                        <label htmlFor='icon-button-file'>
-                            <Input accept="image/*" id="icon-button-file" type="file" onChange={handleSubmit} onInput={handleImage} />
-                            <IconButton color="primary" aria-label="upload picture" component="span" type="submit"  >
-                                <PhotoCamera />
-                            </IconButton>
-                        </label>
-                    </Stack>
-                </div>
+                                </div>
 
-                <div className="Player_description">
+                            </Stack>
+                        </div>
+
+                    </div>
+
+                    <ul style={{ listStyle: "none" }}>
+                        <li>Height: 6'0</li>
+                        <li>Weight: 145lbs</li>
+                        <li>Position: SG/PG</li>
+                    </ul>
+
+
+
+                </Stack>
+            </div >
+
+
+
+
+
+
+            {/* <div className="Player_description">
                     <p className="describe">{descText ? descText : "Describe your Game"}</p>
                     <button onClick={editBox}>Edit Description</button>
 
@@ -175,17 +176,18 @@ export default function Profile() {
                             <button onClick={descriptUpdate}>Submit</button>
                         </> : null
                     }
-                </div>
-            </div>
+                </div> */}
+
 
 
             <div className="player_stats">
-                <PlayerStats
+                {/* <PlayerStats
                     communityStats={communityStats}
-                    playerStats={playerStats} />
-
+                    playerStats={playerStats} /> */}
+                    <PlayerStatsEdit/>
             </div>
         </div>
+
 
 
     )
