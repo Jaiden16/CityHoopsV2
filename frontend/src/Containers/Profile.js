@@ -41,9 +41,12 @@ export default function Profile() {
 
     const [edit, setEdit] = useState(false)
     const [statsEdit, setStatsEdit] = useState(false)
+    const [updated, setUpdated] = useState(false)
     const textArea = useRef(null)
 
     const API = apiUrl();
+
+    const [userNumber, setUserNumber] = useState("")
 
 
     // console.log("profile page: ", image)
@@ -75,6 +78,7 @@ export default function Profile() {
                 // console.log("fetch consolelog ", res.data.user.username)
                 setUsername(res.data.user.username)
                 let usernum = res.data.user.usernum
+                setUserNumber(usernum)
                 // console.log("user num ", usernum)
                 let res2 = await axios.get(`${API}/api/skills/${usernum}`)
                 // console.log(res2.data.user)
@@ -108,6 +112,20 @@ export default function Profile() {
         fetchPhotoUrl(email)
 
     }, [])
+
+    useEffect(() => {
+        if (updated) {
+            console.log("update function")
+            fetchSkills(email)
+            setUpdated(!updated)
+        }
+
+
+    }, [email,updated])
+
+    const skillsUpdated = () => {
+        setUpdated(!updated)
+    }
 
 
     const handleSubmit = async (e) => {
@@ -179,7 +197,13 @@ export default function Profile() {
 
 
             <div className="player_stats">
-                {statsEdit ? <PlayerStatsEdit playerStats={playerStats} communityStats={communityStats} edit={updateStats}/> : <PlayerStats communityStats={communityStats} playerStats={playerStats} edit={updateStats}/>}
+                {statsEdit ? <PlayerStatsEdit
+                    playerStats={playerStats}
+                    communityStats={communityStats}
+                    usernum={userNumber}
+                    func = {skillsUpdated}
+                    edit={updateStats} />
+                    : <PlayerStats communityStats={communityStats} playerStats={playerStats} edit={updateStats} />}
             </div>
         </div>
     )

@@ -39,10 +39,13 @@ const getSingleSkill = async (req,res) =>{
 //patch skill
 
 const PatchUser = async (req, res) => {
+    console.log("req.body", req.body)
+    console.log("back end", req.body.shooting)
+    
     try {
         let patch;
         let userUpdates = {
-            id: req.params.usernum,
+            id: parseInt(req.params.usernum),
             shooting: parseInt(req.body.shooting),
             handle: parseInt(req.body.handle),
             perimiter_defence: parseInt(req.body.perimiter_defence),
@@ -53,6 +56,7 @@ const PatchUser = async (req, res) => {
             iq: parseInt(req.body.iq),
             leadership: parseInt(req.body.leadership)
         }
+        console.log("back end object", userUpdates)
 
 
         let query = `UPDATE skills SET `;
@@ -114,6 +118,7 @@ const PatchUser = async (req, res) => {
 
     } catch (err) {
         console.log(err)
+        
         res.json({
             message: `Error: ${err}`
         })

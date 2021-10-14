@@ -6,6 +6,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Button from "@mui/material/Button"
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "@mui/material/IconButton"
 
@@ -64,9 +65,10 @@ export default function PlayerStats({ playerStats, communityStats, edit} ) {
 
                 </Table>
             </TableContainer>
-            <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
+            <Button style={{ float: "right", width:115, color:"black" }} variant="contained" endIcon={<EditIcon />} onClick={edit}>Edit</Button>
+            {/* <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
                 Edit  <EditIcon />
-            </IconButton>
+            </IconButton> */}
         </div>
     )
 }

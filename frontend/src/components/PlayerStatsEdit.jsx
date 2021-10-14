@@ -11,6 +11,9 @@ import PublishIcon from '@mui/icons-material/Publish';
 import IconButton from "@mui/material/IconButton"
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
+import { orange, red } from "@mui/material/colors"
+import axios from "axios";
+import {apiUrl} from "../util/util"
 
 // import Paper from '@mui/material/Paper';
 
@@ -34,38 +37,111 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
+const RedColorButton = styled(Button)(({ theme }) => ({
+    /*color: theme.palette.getContrastText(grey[900]),*/
+    // color: "white-smoke",
+    backgroundColor: red["A700"],
+    '&:hover': {
+        backgroundColor: red[600],
+    },
+}));
 
-export default function PlayerStatsEdit({ playerStats, edit }) {
+const API = apiUrl();
+
+export default function PlayerStatsEdit({ playerStats, edit, usernum,func }) {
     // console.log(playerStats, communityStats)
     const stats = ["Shooting", "Handle", "Perimiter Defense",
         "Interior Defence", "Rebounding", "Steals", "Blocks", "Court IQ", "Leadership"]
     let [statsValue, setStatsValue] = useState({
-        shooting: 1,
-        handle: 1,
-        perimiter_defence: 1,
-        interior_defence: 1,
-        rebounding: 1,
-        steals: 1,
-        blocks: 1,
-        iq: 1,
-        leadership: 1
+        shooting: 3,
+        handle: 3,
+        perimiter_defence: 3,
+        interior_defence: 3,
+        rebounding: 3,
+        steals: 3,
+        blocks: 3,
+        iq: 3,
+        leadership: 3
     })
 
-    console.log(playerStats)
+    let currentStatsValue = {
+        shooting: playerStats.shooting,
+        handle: playerStats.handle,
+        perimiter_defence: playerStats.perimiter_defence,
+        interior_defence: playerStats.interior_defence,
+        rebounding: playerStats.rebounding,
+        steals: playerStats.rebounding,
+        blocks: playerStats.blocks,
+        iq: playerStats.iq,
+        leadership: playerStats.leadership
+    }
+
+    // console.log("current stats", currentStatsValue)
 
     const handleChange = (e) => {
         console.log("value change", e.target.value)
         if (e.target.value > 0) {
             setStatsValue({
-                ...statsValue, [e.target.name]: parseInt(e.target.value)
+                ...statsValue, [e.target.name]: e.target.value
             })
         }
-        console.log("change function", statsValue)
+        // console.log("change function", statsValue)
     }
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log("submit")
+        let updatedStats = {}
+        if(currentStatsValue.shooting !== statsValue.shooting){
+            console.log("shooting")
+            updatedStats.shooting = statsValue.shooting
+        }
+        if(currentStatsValue.handle !== statsValue.handle){
+            console.log("handle")
+            updatedStats.handle = statsValue.handle
+        }
+        if(currentStatsValue.perimiter_defence !== statsValue.perimiter_defence){
+            console.log("perimiter d")
+            updatedStats.perimiter_defence = statsValue.perimiter_defence
+        }
+        if(currentStatsValue.interior_defence !== statsValue.interior_defence){
+            console.log("int d")
+            updatedStats.interior_defence = statsValue.interior_defence
+        }
+        if(currentStatsValue.rebounding !== statsValue.rebounding){
+            console.log("reb")
+            updatedStats.rebounding = statsValue.rebounding
+        }
+        if(currentStatsValue.steals !== statsValue.steals){
+            console.log("steals")
+            updatedStats.steals = statsValue.steals
+        }
+        if(currentStatsValue.blocks !== statsValue.blocks){
+            console.log("blocks")
+            updatedStats.blocks = statsValue.blocks
+        }
+        if(currentStatsValue.iq !== statsValue.iq){
+            console.log("iq")
+            updatedStats.iq = statsValue.iq
+        }
+        if(currentStatsValue.leadership !== statsValue.leadership){
+            console.log("leadership")
+            updatedStats.leadership = statsValue.leadership
+        }
+        if(usernum){
+            try{
+                let url =`${API}/api/skills/${usernum}`
+                let patch = await axios.patch(url,updatedStats)
+                console.log("stat object",updatedStats)
+                // console.log("try",url)
+    
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+        func()
+        
         edit()
     }
 
@@ -73,7 +149,8 @@ export default function PlayerStatsEdit({ playerStats, edit }) {
     const value = [1, 2, 3, 4, 5]
 
     let key = Object.keys(statsValue)
-    console.log("key variable", statsValue)
+    // console.log("key variable", statsValue)
+    // console.log("usernumber", usernum)
 
     return (
         <form onSubmit={handleSubmit}>
@@ -112,8 +189,8 @@ export default function PlayerStatsEdit({ playerStats, edit }) {
                 </Table>
             </TableContainer>
             <Stack direction="row" alignItems="flex-end" justifyContent="flex-end" spacing={2}>
-                <Button style={{ float: "right", width:115 }} variant="contained" endIcon={<PublishIcon />} type="submit">Send</Button>
-                <Button style={{ float: "right", width:115 }} variant="contained" endIcon={<CancelIcon />} onClick={edit}>Cancel</Button>
+                <Button style={{ float: "right", width: 115, color: "black" }} variant="contained" endIcon={<PublishIcon />} type="submit">Send</Button>
+                <RedColorButton style={{ float: "right", width: 115, color: "black", fontWeight: 550 }} variant="contained" endIcon={<CancelIcon />} onClick={edit}>Cancel</RedColorButton>
             </Stack>
 
 
