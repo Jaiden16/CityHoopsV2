@@ -6,30 +6,33 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from "@mui/material/IconButton"
+
 // import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
+        fontSize: 14,
     },
-  }));
-  
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.action.hover,
     },
     // hide last border
     '&:last-child td, &:last-child th': {
-      border: 0,
+        border: 0,
     },
-  }));
+}));
 
 
-export default function PlayerStats({ playerStats, communityStats }) {
+export default function PlayerStats({ playerStats, communityStats, edit} ) {
     // console.log(playerStats, communityStats)
     const stats = ["Shooting", "Handle", "Perimiter Defense",
         "Interior Defence", "Rebounding", "Steals", "Blocks", "Court IQ", "Leadership"]
@@ -37,7 +40,7 @@ export default function PlayerStats({ playerStats, communityStats }) {
     return (
         <div>
             <TableContainer /*component={Paper}*/>
-                <Table sx={{ width:"100%" }} aria-label="customized table">
+                <Table sx={{ width: "100%" }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Ability</StyledTableCell>
@@ -61,6 +64,9 @@ export default function PlayerStats({ playerStats, communityStats }) {
 
                 </Table>
             </TableContainer>
+            <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
+                Edit  <EditIcon />
+            </IconButton>
         </div>
     )
 }

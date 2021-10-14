@@ -11,7 +11,8 @@ import PlayerStats from "../components/PlayerStats";
 
 /*Material UI Imported button code*/
 import { styled } from "@mui/material/styles"
-// import Button from "@mui/material/Button"
+import Button from "@mui/material/Button"
+import EditIcon from '@mui/icons-material/Edit';
 import IconButton from "@mui/material/IconButton"
 import PhotoCamera from "@mui/icons-material/PhotoCamera"
 import Stack from "@mui/material/Stack"
@@ -39,6 +40,7 @@ export default function Profile() {
     const [descText, setDescText] = useState("")
 
     const [edit, setEdit] = useState(false)
+    const [statsEdit, setStatsEdit] = useState(false)
     const textArea = useRef(null)
 
     const API = apiUrl();
@@ -60,6 +62,10 @@ export default function Profile() {
     }
     const editBox = () => {
         setEdit(!edit)
+    }
+
+    const updateStats = () => {
+        setStatsEdit(!statsEdit)
     }
 
     const fetchSkills = async (email) => {
@@ -155,16 +161,8 @@ export default function Profile() {
                         <li>Weight: 145lbs</li>
                         <li>Position: SG/PG</li>
                     </ul>
-
-
-
                 </Stack>
             </div >
-
-
-
-
-
 
             {/* <div className="Player_description">
                     <p className="describe">{descText ? descText : "Describe your Game"}</p>
@@ -181,14 +179,8 @@ export default function Profile() {
 
 
             <div className="player_stats">
-                {/* <PlayerStats
-                    communityStats={communityStats}
-                    playerStats={playerStats} /> */}
-                    <PlayerStatsEdit/>
+                {statsEdit ? <PlayerStatsEdit playerStats={playerStats} communityStats={communityStats} edit={updateStats}/> : <PlayerStats communityStats={communityStats} playerStats={playerStats} edit={updateStats}/>}
             </div>
         </div>
-
-
-
     )
 }

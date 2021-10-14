@@ -6,6 +6,12 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import CancelIcon from '@mui/icons-material/Cancel';
+import PublishIcon from '@mui/icons-material/Publish';
+import IconButton from "@mui/material/IconButton"
+import Button from "@mui/material/Button"
+import Stack from "@mui/material/Stack"
+
 // import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -29,27 +35,40 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export default function PlayerStatsEdit(/*{ playerStats, communityStats }*/) {
+export default function PlayerStatsEdit({ playerStats, edit }) {
     // console.log(playerStats, communityStats)
     const stats = ["Shooting", "Handle", "Perimiter Defense",
         "Interior Defence", "Rebounding", "Steals", "Blocks", "Court IQ", "Leadership"]
     let [statsValue, setStatsValue] = useState({
-        shoot: 1,
+        shooting: 1,
         handle: 1,
-        perimiter_d: 1,
-        int_d: 1,
-        reb: 1,
-        stl: 1,
-        blk: 1,
+        perimiter_defence: 1,
+        interior_defence: 1,
+        rebounding: 1,
+        steals: 1,
+        blocks: 1,
         iq: 1,
-        ldr: 1
+        leadership: 1
     })
 
+    console.log(playerStats)
+
     const handleChange = (e) => {
-        setStatsValue({...statsValue, [e.target.name]: parseInt(e.target.value)
-        })
-        console.log("change function",statsValue)
+        console.log("value change", e.target.value)
+        if (e.target.value > 0) {
+            setStatsValue({
+                ...statsValue, [e.target.name]: parseInt(e.target.value)
+            })
+        }
+        console.log("change function", statsValue)
     }
+
+    const handleSubmit =(e)=>{
+        e.preventDefault()
+        console.log("submit")
+        edit()
+    }
+
 
     const value = [1, 2, 3, 4, 5]
 
@@ -57,13 +76,13 @@ export default function PlayerStatsEdit(/*{ playerStats, communityStats }*/) {
     console.log("key variable", statsValue)
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <TableContainer /*component={Paper}*/>
-                <Table sx={{ width: "70%" }} aria-label="customized table">
+                <Table sx={{ width: "100%" }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Ability</StyledTableCell>
-                            <StyledTableCell align="right">Personal</StyledTableCell>
+                            <StyledTableCell align="left">Stat</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -73,9 +92,9 @@ export default function PlayerStatsEdit(/*{ playerStats, communityStats }*/) {
                                 <StyledTableCell component="th" scope="row">
                                     {stats[i]}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <select id={keyname} onClick={(e) => { console.log("target name", e.target.name) }} name={key[i]} onChange={handleChange} value={statsValue[keyname]}>
-                                        <option disabled>Select Rating</option>
+                                <StyledTableCell align="left">
+                                    <select id={keyname} onClick={(e) => { console.log("target name", e) }} name={key[i]} onChange={handleChange} /*value={statsValue[keyname]}*/>
+                                        <option value={0}>Select Rating</option>
                                         {value.map((el, ind) => {
                                             return (
                                                 <option key={ind} value={el}>{el}</option>
@@ -92,6 +111,18 @@ export default function PlayerStatsEdit(/*{ playerStats, communityStats }*/) {
 
                 </Table>
             </TableContainer>
+            <Stack direction="row" alignItems="flex-end" justifyContent="flex-end" spacing={2}>
+                <Button style={{ float: "right", width:115 }} variant="contained" endIcon={<PublishIcon />} type="submit">Send</Button>
+                <Button style={{ float: "right", width:115 }} variant="contained" endIcon={<CancelIcon />} onClick={edit}>Cancel</Button>
+            </Stack>
+
+
+            {/* <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
+                Cancel  <CancelIcon />
+            </IconButton> */}
+            {/* <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
+                Submit <PublishIcon />
+            </IconButton> */}
         </form>
     )
 }
