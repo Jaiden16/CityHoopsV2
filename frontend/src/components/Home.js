@@ -5,7 +5,7 @@ import { apiUrl } from "../util/util"
 import { GoogleMap, useLoadScript, Marker, /*InfoWindow*/ } from "@react-google-maps/api"
 import mapStyles from "../mapstyles"
 import "../Css/Home.css"
-import Key from "../secrets/secrets"
+// import Key from "../secrets/secrets"
 import parkData from "../data/DPR_Basketball_001.json"
 
 const libraries = ["places"]
@@ -24,7 +24,7 @@ const options = {
     zoomControl: true
 }
 
-
+const Key = process.env.REACT_APP_GOOGLE_API
 
 
 console.dir(parkData)
