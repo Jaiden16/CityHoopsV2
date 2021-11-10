@@ -1,0 +1,10 @@
+.title{
+    position: absolute;
+    /* top: 1rem; */
+    /* left: 1rem; */
+    background-color: black;
+    z-index: 10;
+    color:white;
+    margin: 0;
+    padding: 0;
+}
