@@ -2,13 +2,16 @@ import React, { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../Provider/authContext"
 import axios from "axios"
 import { apiUrl } from "../util/util"
-import { GoogleMap, useLoadScript, Marker, /*InfoWindow*/ } from "@react-google-maps/api"
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api"
 import mapStyles from "../mapstyles"
 import "../Css/Home.css"
 // import Key from "../secrets/secrets"
 import parkData from "../data/DPR_Basketball_001.json"
 
 const libraries = ["places"]
+
+
+
 const mapContainerStyle = {
     width: "100vw",
     height: "100vh"
@@ -30,6 +33,9 @@ const Key = process.env.REACT_APP_GOOGLE_API
 console.dir(parkData)
 
 export default function Home() {
+    const [selectedPark, setSelectedPark] = useState(null)
+    const [location, setLocation] = useState(center)
+    const [blockedLocation, setBlockedLocation] = useState(0)
     const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState("")
     const API = apiUrl();
@@ -44,12 +50,25 @@ export default function Home() {
                 setUser(username)
 
             } catch (err) {
+                setBlockedLocation(-1)
                 console.log(err)
             }
         }
     }
 
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition((data) => {
+            let center = {
+                lat: data.coords.latitude,
+                lng: data.coords.longitude
+
+            }
+            setLocation(center)
+            // console.log(data.coords.latitude, data.coords.longitude)}
+        }, (err) => {
+            console.log(err, "could not get location")
+        })
+
         if (currentUser) {
             // setUser(currentUser.email)
             getUser(currentUser.email);
@@ -71,21 +90,42 @@ export default function Home() {
         <div>
             <h1 >City HoopZ HomePage</h1>
             {user}
+            {blockedLocation < 0 ? null : <p>Location Blocked: Please allow app to use your location to function properly</p>}
             <div>
                 <h1 className="title">
                     CityHoopZ<span role="img" aria-label="basketball">🏀</span>
                 </h1>
                 <GoogleMap mapContainerStyle={mapContainerStyle}
-                    zoom={12}
-                    center={center}
+                    zoom={15}
+                    center={location}
                     options={options}
                 >
-                    {parkData.map((marker, ind) =>
+                    {parkData.map((park, ind) =>
                         <Marker key={ind}
-                            position={{ lat: Number(marker.lat), lng: Number(marker.lon) }}
+                            position={{ lat: Number(park.lat), lng: Number(park.lon) }}
+                            onClick={() => {
+                                setSelectedPark(park)
+                            }}
                         />
                     )}
+                    {selectedPark && (
+                        <InfoWindow
+                            position={{
+                                lat: Number(selectedPark.lat), lng: Number(selectedPark.lon)
+                            }}
+                            onCloseClick={() => { setSelectedPark(null) }}
+                        // icon ={{
 
+                        // }}
+                        >
+                            <div>
+                                <h1>{selectedPark.Name}</h1>
+                                <p>{selectedPark.Location}</p>
+                                <p>{selectedPark.Accessible}</p>
+                                <p>{selectedPark.Num_of_Courts}</p>
+                            </div>
+
+                        </InfoWindow>)}
 
                 </GoogleMap>
 
