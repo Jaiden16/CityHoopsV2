@@ -56,6 +56,31 @@ export default function Home() {
         }
     }
 
+    const MapInfo = (selectedPark) => {
+        if (selectedPark) {
+            return (
+                <div className= "Map-Info active">
+                    <h1>{selectedPark.Name}</h1>
+                    <p> Address: {selectedPark.Location}</p>
+                    <p> Accessible:{selectedPark.Accessible}</p>
+                    <p>{selectedPark.Num_of_Courts}</p>
+                </div>
+            )
+        }else{
+            return(
+                <div className= "Map-Info">
+                    <h1>{}</h1>
+                    <p> Address: {}</p>
+                    <p> Accessible:{}</p>
+                    <p>{}</p>
+                </div>
+
+            )
+        }
+
+
+    }
+
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((data) => {
             let center = {
@@ -78,6 +103,8 @@ export default function Home() {
 
     }, [])
 
+
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: Key,
         libraries
@@ -88,7 +115,7 @@ export default function Home() {
 
     return (
         <div>
-            <h1 >City HoopZ HomePage</h1>
+            {/* <h1 >City HoopZ HomePage</h1> */}
             {user}
             {blockedLocation < 0 ? null : <p>Location Blocked: Please allow app to use your location to function properly</p>}
             <div>
@@ -108,24 +135,26 @@ export default function Home() {
                             }}
                         />
                     )}
-                    {selectedPark && (
-                        <InfoWindow
-                            position={{
-                                lat: Number(selectedPark.lat), lng: Number(selectedPark.lon)
-                            }}
-                            onCloseClick={() => { setSelectedPark(null) }}
-                        // icon ={{
 
-                        // }}
-                        >
-                            <div>
-                                <h1>{selectedPark.Name}</h1>
-                                <p>{selectedPark.Location}</p>
-                                <p>{selectedPark.Accessible}</p>
-                                <p>{selectedPark.Num_of_Courts}</p>
-                            </div>
+                    {/* {selectedPark ? (<InfoWindow
+                        position={{
+                            lat: Number(selectedPark.lat), lng: Number(selectedPark.lon)
+                        }}
+                        onCloseClick={() => { setSelectedPark(null) }}
 
-                        </InfoWindow>)}
+                    >
+                        <div style={divStyle}>
+                            <h1>{selectedPark.Name}</h1>
+                            <p> Address: {selectedPark.Location}</p>
+                            <p> Accessible:{selectedPark.Accessible}</p>
+                            <p>{selectedPark.Num_of_Courts}</p>
+                        </div>
+                    </InfoWindow >) : null} */}
+
+                    {/* {selectedPark ? (MapInfo(selectedPark)) : null} */}
+                    {(MapInfo(selectedPark))}
+
+
 
                 </GoogleMap>
 

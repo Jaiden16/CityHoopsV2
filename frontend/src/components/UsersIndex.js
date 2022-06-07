@@ -24,7 +24,7 @@ export default function UsersIndex() {
     }, [])
     return (
         <div>
-            <h1>All Users. You are seeing this if logged in</h1>
+            <h1>Users</h1>
             <ul>
                 {users.map(user => {
                     return <li key={user.id}>{user.username}</li>

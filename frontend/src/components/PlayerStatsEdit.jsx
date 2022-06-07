@@ -171,7 +171,7 @@ export default function PlayerStatsEdit({ playerStats, edit, usernum,func }) {
                                 </StyledTableCell>
                                 <StyledTableCell align="left">
                                     <select id={keyname} onClick={(e) => { console.log("target name", e) }} name={key[i]} onChange={handleChange} /*value={statsValue[keyname]}*/>
-                                        <option value={0}>Select Rating</option>
+                                        <option value={0}>Select Time</option>
                                         {value.map((el, ind) => {
                                             return (
                                                 <option key={ind} value={el}>{el}</option>

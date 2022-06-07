@@ -18,6 +18,13 @@ export const SidebarData = [
         cName:'nav-text'
     },
     {
+        title:"Users",
+        path:"/users",
+        icon:<FaIcons.FaUsers/>,
+        cName:'nav-text'
+
+    },
+    {
         title:'About',
         path: '/about',
         icon: <FaIcons.FaCartPlus/>,

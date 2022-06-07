@@ -66,9 +66,6 @@ export default function PlayerStats({ playerStats, communityStats, edit} ) {
                 </Table>
             </TableContainer>
             <Button style={{ float: "right", width:115, color:"black" }} variant="contained" endIcon={<EditIcon />} onClick={edit}>Edit</Button>
-            {/* <IconButton style={{ float: "right" }} color="primary" aria-label="upload picture" component="span" onClick={edit}>
-                Edit  <EditIcon />
-            </IconButton> */}
         </div>
     )
 }
