@@ -13,6 +13,11 @@
     background-color: blue;
 }
 
+.map{
+    height:calc(100vh  - 80px);
+    overflow: hidden;
+}
+
 .gm-style .gm-style-iw-c {
     padding-right: 10px !important;
     padding-bottom: 0px !important;
@@ -50,6 +55,18 @@
 .Map-Info.active{
     bottom: 25%;
     transition: 350ms;
+
+}
+
+.Map-Info.Map-Info.active::after{
+    content: "";
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    z-index:1;
+    background:transparent;
 
 }
 

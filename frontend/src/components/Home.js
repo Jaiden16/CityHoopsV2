@@ -5,6 +5,7 @@ import { apiUrl } from "../util/util"
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api"
 import mapStyles from "../mapstyles"
 import "../Css/Home.css"
+// import "../util/pointerEvents"
 // import Key from "../secrets/secrets"
 import parkData from "../data/DPR_Basketball_001.json"
 
@@ -59,26 +60,33 @@ export default function Home() {
     const MapInfo = (selectedPark) => {
         if (selectedPark) {
             return (
-                <div className= "Map-Info active">
+                <div className="Map-Info active"
+                // onClick={(e) => { ClickEvent(e) }}
+                >
                     <h1>{selectedPark.Name}</h1>
                     <p> Address: {selectedPark.Location}</p>
                     <p> Accessible:{selectedPark.Accessible}</p>
                     <p>{selectedPark.Num_of_Courts}</p>
                 </div>
             )
-        }else{
-            return(
-                <div className= "Map-Info">
-                    <h1>{}</h1>
-                    <p> Address: {}</p>
-                    <p> Accessible:{}</p>
-                    <p>{}</p>
+        } else {
+            return (
+                <div className="Map-Info">
+                    <h1>{ }</h1>
+                    <p> Address: { }</p>
+                    <p> Accessible:{ }</p>
+                    <p>{ }</p>
                 </div>
 
             )
         }
 
 
+    }
+
+    const ClickEvent = (e) => {
+        console.log(e)
+        // setSelectedPark(null)
     }
 
     useEffect(() => {
@@ -116,47 +124,42 @@ export default function Home() {
     return (
         <div>
             {/* <h1 >City HoopZ HomePage</h1> */}
-            {user}
-            {blockedLocation < 0 ? null : <p>Location Blocked: Please allow app to use your location to function properly</p>}
+            {/* {user} */}
+            {/* {blockedLocation < 0 ? null : <p>Location Blocked: Please allow app to use your location to function properly</p>} */}
             <div>
                 <h1 className="title">
                     CityHoopZ<span role="img" aria-label="basketball">🏀</span>
                 </h1>
-                <GoogleMap mapContainerStyle={mapContainerStyle}
-                    zoom={15}
-                    center={location}
-                    options={options}
-                >
-                    {parkData.map((park, ind) =>
-                        <Marker key={ind}
-                            position={{ lat: Number(park.lat), lng: Number(park.lon) }}
-                            onClick={() => {
-                                setSelectedPark(park)
-                            }}
-                        />
-                    )}
-
-                    {/* {selectedPark ? (<InfoWindow
-                        position={{
-                            lat: Number(selectedPark.lat), lng: Number(selectedPark.lon)
-                        }}
-                        onCloseClick={() => { setSelectedPark(null) }}
-
+                <div className="map"
+                    onPointerDown={e => {
+                        console.log(e)
+                        if ( selectedPark && e.target.className !== "Map-Info active") {
+                            setSelectedPark(null)
+                        }
+                    }}>
+                    <GoogleMap
+                        mapElement={<div style={{ height: "50vh" }}></div>}
+                        mapContainerStyle={mapContainerStyle}
+                        zoom={15}
+                        center={location}
+                        options={options}
                     >
-                        <div style={divStyle}>
-                            <h1>{selectedPark.Name}</h1>
-                            <p> Address: {selectedPark.Location}</p>
-                            <p> Accessible:{selectedPark.Accessible}</p>
-                            <p>{selectedPark.Num_of_Courts}</p>
-                        </div>
-                    </InfoWindow >) : null} */}
+                        {parkData.map((park, ind) =>
+                            <Marker 
+                                key={ind}
+                                position={{ lat: Number(park.lat), lng: Number(park.lon) }}
+                                onClick={() => {
+                                    setSelectedPark(park)
+                                }}
+                            />
+                        )}
 
-                    {/* {selectedPark ? (MapInfo(selectedPark)) : null} */}
-                    {(MapInfo(selectedPark))}
+                        {(MapInfo(selectedPark))}
 
 
 
-                </GoogleMap>
+                    </GoogleMap>
+                </div>
 
 
                 {/* <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1wMjHq3p-4tBmB_8xABUvE7MggZNyRPIp&zoom=25&center=40.826149,-73.920273" width="640" height="480"></iframe> */}

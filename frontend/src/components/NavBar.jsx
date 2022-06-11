@@ -28,11 +28,9 @@ export default function NavBar() {
                             </li>
                         )
                     })}
-                    {/* <NavLink to={'/profile'}>My Profile</NavLink>
-                    <button onClick={logout}>LogOut</button> */}
                     <li className='nav-text' onClick={showSidebar}>
                         <span>
-                            <button  onClick={logout}>LogOut</button>
+                            <button onClick={logout}>LogOut</button>
                         </span>
                     </li>
 
@@ -86,21 +84,12 @@ export default function NavBar() {
                         </Link>
                     </li>
                     {displayButtons()}
-
-
-                    {/* {SidebarData.map((item, index) => {
-                        return (
-                            <li key={index}
-                                className={item.cName}>
-                                <Link to={item.path}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </li>
-                        )
-                    })} */}
                 </ul>
             </nav>
+            {sidebar? <div onClick={showSidebar} className="nav-mask"></div>: null}
+
+            
+
         </>
     )
 
