@@ -14,7 +14,7 @@
 }
 
 .map{
-    height:calc(100vh  - 80px);
+    height:calc(100vh  - 50px);
     overflow: hidden;
 }
 
@@ -54,7 +54,7 @@
 }
 .Map-Info.active{
     bottom: 25%;
-    transition: 350ms;
+    transition: 500ms;
 
 }
 
@@ -71,7 +71,7 @@
 }
 
 .Map-Info{
-    transition: 350ms;
+    transition: 500ms;
     /* top: 69%; */
     bottom: -100%;
     right: 30%;

@@ -25,7 +25,7 @@ const center = {
 const options = {
     styles: mapStyles,
     disableDefaultUI: true,
-    zoomControl: true
+    zoomControl: false
 }
 
 const Key = process.env.REACT_APP_GOOGLE_API

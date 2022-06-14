@@ -33,7 +33,6 @@ export default function NavBar() {
                             <button onClick={logout}>LogOut</button>
                         </span>
                     </li>
-
                 </>
             )
         } else {
@@ -51,11 +50,6 @@ export default function NavBar() {
                             <span>SignUp</span>
                         </Link>
                     </li>
-
-
-
-
-
                 </>
             )
         }
@@ -67,6 +61,35 @@ export default function NavBar() {
                 <NavLink to="#" className='menu-bars'>
                     <FaICons.FaBars onClick={showSidebar} />
                 </NavLink>
+            </div>
+
+            <div className="Navigation">
+                <ul>
+                    <li className="list">
+                        <NavLink to="/">
+                            <span className="icon"><FaICons.FaHome /></span>
+                            <span className="text">Home</span>
+                        </NavLink>
+                    </li>
+                    <li className="list">
+                        <NavLink to="/profile">
+                            <span className="icon"><FaICons.FaUser /></span>
+                            <span className="text">Profile</span>
+                        </NavLink>
+                    </li>
+                    <li className="list">
+                        <NavLink to="/users">
+                            <span className="icon"><FaICons.FaUsers /></span>
+                            <span className="text">Users</span>
+                        </NavLink>
+                    </li>
+                    <li className="list">
+                        <NavLink to="/about">
+                            <span className="icon"><FaICons.FaCartPlus /></span>
+                            <span className="text">About</span>
+                        </NavLink>
+                    </li>
+                </ul>
             </div>
 
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
@@ -86,19 +109,7 @@ export default function NavBar() {
                     {displayButtons()}
                 </ul>
             </nav>
-            {sidebar? <div onClick={showSidebar} className="nav-mask"></div>: null}
-
-            
-
+            {sidebar ? <div onClick={showSidebar} className="nav-mask"></div> : null}
         </>
     )
-
-    // return (
-    //     <nav>
-    //         <NavLink exact to={'/'}>Home</NavLink>
-    //         <NavLink to={'/users'}>Users</NavLink>
-    //         {displayButtons()}
-    //     </nav>
-    // )
 };
-
