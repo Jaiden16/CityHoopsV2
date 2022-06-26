@@ -140,8 +140,29 @@ span {
     color: white;
 }
 
+.Navigation ul li:hover a .icon.about {
+    transform: translateY(-10px);
+    color: green;
+}
+
+.Navigation ul li:hover a .icon.lo {
+    transform: translateY(-10px);
+    color: red;
+}
+
+.Navigation ul li:hover a .icon.users {
+    transform: translateY(-10px);
+    color: purple;
+}
+
+.Navigation ul li:hover a .icon.profile {
+    transform: translateY(-10px);
+    color: lightblue;
+}
+
+
 .Navigation ul li:hover a .icon {
-    transform: translateY(-30px);
+    transform: translateY(-10px);
 }
 
 .Navigation ul li a .text {

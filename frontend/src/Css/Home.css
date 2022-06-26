@@ -57,6 +57,16 @@
     transition: 500ms;
 
 }
+.Map-Info.active h1{
+    margin: 0px;
+    text-align: center;
+
+}
+
+.Map-Info.active hr{
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
 
 .Map-Info.Map-Info.active::after{
     content: "";
@@ -79,7 +89,8 @@
     border-radius: 10px;
     max-width: 500px;
     width: 80%;
-    max-height: 300px;
+    max-height: 250px;
     min-width: 0px;
+    height: 250px;
     background-color: white;
 }

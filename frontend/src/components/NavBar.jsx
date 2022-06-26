@@ -73,20 +73,26 @@ export default function NavBar() {
                     </li>
                     <li className="list">
                         <NavLink to="/profile">
-                            <span className="icon"><FaICons.FaUser /></span>
+                            <span className="icon profile"><FaICons.FaUser /></span>
                             <span className="text">Profile</span>
                         </NavLink>
                     </li>
                     <li className="list">
                         <NavLink to="/users">
-                            <span className="icon"><FaICons.FaUsers /></span>
+                            <span className="icon users"><FaICons.FaUsers /></span>
                             <span className="text">Users</span>
                         </NavLink>
                     </li>
                     <li className="list">
                         <NavLink to="/about">
-                            <span className="icon"><FaICons.FaCartPlus /></span>
+                            <span className="icon about"><FaICons.FaInfo /></span>
                             <span className="text">About</span>
+                        </NavLink>
+                    </li>
+                    <li className="list">
+                        <NavLink onClick={logout} to="#">
+                            <span className="icon lo"><FaICons.FaSignOutAlt/></span>
+                            <span className="text">LogOut</span>
                         </NavLink>
                     </li>
                 </ul>

@@ -60,10 +60,9 @@ export default function Home() {
     const MapInfo = (selectedPark) => {
         if (selectedPark) {
             return (
-                <div className="Map-Info active"
-                // onClick={(e) => { ClickEvent(e) }}
-                >
+                <div className="Map-Info active">
                     <h1>{selectedPark.Name}</h1>
+                    <hr/>
                     <p> Address: {selectedPark.Location}</p>
                     <p> Accessible:{selectedPark.Accessible}</p>
                     <p>{selectedPark.Num_of_Courts}</p>
